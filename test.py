@@ -37,9 +37,9 @@ def MonteCarlo(s, i, xmin, xmax, ymin, ymax):
     return (ctr / s) * area
 
 
-def plotConvergence(steps):
-    x = np.linspace(1, 10000, steps + 1).astype('int')
-    y = np.linspace(1, 8000, steps + 1).astype('int')
+def plotConvergence(steps, maxIterations, maxSamplings):
+    x = np.linspace(1, maxSamplings, steps + 1).astype('int')
+    y = np.linspace(1, maxIterations, steps + 1).astype('int')
     results = [[0 for j in range(steps+1)] for i in range(steps+1)]
     X, Y = np.meshgrid(x, y)
     s_in = 0
@@ -47,8 +47,17 @@ def plotConvergence(steps):
     for s in x:
         for i in y:
             result = MonteCarlo(s, i, -2.0, 0.5, -1.25, 1.25)
+#             print(result)
+            results[s_in][i_in] = result
+            i_in += 1
+        s_in += 1
+        i_in = 0
+    results=np.array([np.array(xi) for xi in results])
     fig = plt.figure()
     ax = fig.add_subplot(111, projection='3d')
-    res = ax.plot_surface(x, y, results)
+    ax.invert_xaxis()
+    res = ax.plot_surface(X, Y, results)
+    ax.show()
 
-plotConvergence(10)
+plotConvergence(10, 1000, 800)
+

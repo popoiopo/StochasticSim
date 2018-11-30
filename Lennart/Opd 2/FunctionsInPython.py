@@ -46,8 +46,8 @@ def Wq(rho, mu, n):
     a = 1 / (mu * (n - rho))
     return a * Pq
 
-l = 8.0/5
-u = 2.0
+l = 0.95
+u = 1.0
 rho = l/u
 
 print(C(rho, 1) == rho)
@@ -71,8 +71,8 @@ print("For 1 servers")
 print(f"Average time in queue calculated = {averageQueueTimesOne(l, u)}")
 
 n=1
-l = 9.5/5
-u = 2.0
+l = 0.96
+u = 1.0
 rho = l / u
 print("\nFor n=1")
 print(f"C(rho, 2) = {C(rho, n)}")

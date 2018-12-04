@@ -205,16 +205,16 @@ def chemParticleDynamics(bondDict, numSteps=5000, bondLen=1.0,
 
   for step in range(numSteps): # could use xrange in Python 2
     temp = exp(-step/n)
-    
+
     if updateFunc: # Extra for graphical display
       print("Step:", step)
       updateFunc(atomCoords)
-    
+
     for i in indices[1:]:
       atom = atoms[i]
       coords = atomCoords[i]
       velocity = zeros(3, float)
- 
+
       for j in indices:
         if i == j:
           continue
@@ -226,18 +226,18 @@ def chemParticleDynamics(bondDict, numSteps=5000, bondLen=1.0,
         bound = bondDict[atoms[j]]
         if atom in bound:
           force = bondLen - sqrt(dist2)
- 
+
         else:
           force = 1.0 / (dist2*dist2)
-       
+
         force = min(max(-200.0, force), 200.0)
         velocity += delta * force * temp * timeStep
-       
+
       atomCoords[i] += velocity
-     
+
   center = atomCoords.mean(axis=0)
   atomCoords = atomCoords-center
-  
+
   return atomCoords
 
 # The following code is extra to the book, to display chemical structures
